@@ -12,23 +12,23 @@
 ---
 Debian:
   pkg:
-    name: TEMPLATE-debian
-  config: /etc/TEMPLATE.d/custom.conf
+    name: pam-mount-debian
+  config: /etc/pam-mount.d/custom.conf
 
 RedHat:
   pkg:
-    name: TEMPLATE-redhat
-  config: /etc/TEMPLATE.conf
+    name: pam-mount-redhat
+  config: /etc/pam-mount.conf
 
 Suse:
   pkg:
-    name: TEMPLATE-suse
+    name: pam-mount-suse
 
 Gentoo: {}
 
 Arch:
   pkg:
-    name: TEMPLATE-arch
+    name: pam-mount-arch
   service:
     name: service-arch
 

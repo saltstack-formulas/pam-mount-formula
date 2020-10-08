@@ -4,23 +4,23 @@
 {#- Get the `tplroot` from `tpldir` #}
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- set sls_config_file = tplroot ~ '.config.file' %}
-{%- from tplroot ~ "/map.jinja" import TEMPLATE with context %}
+{%- from tplroot ~ "/map.jinja" import pam__mount with context %}
 {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
 include:
   - {{ sls_config_file }}
 
-TEMPLATE-subcomponent-config-file-file-managed:
+pam-mount-subcomponent-config-file-file-managed:
   file.managed:
-    - name: {{ TEMPLATE.subcomponent.config }}
+    - name: {{ pam__mount.subcomponent.config }}
     - source: {{ files_switch(['subcomponent-example.tmpl'],
-                              lookup='TEMPLATE-subcomponent-config-file-file-managed',
+                              lookup='pam-mount-subcomponent-config-file-file-managed',
                               use_subpath=True
                  )
               }}
     - mode: 644
     - user: root
-    - group: {{ TEMPLATE.rootgroup }}
+    - group: {{ pam__mount.rootgroup }}
     - makedirs: True
     - template: jinja
     - require_in:
