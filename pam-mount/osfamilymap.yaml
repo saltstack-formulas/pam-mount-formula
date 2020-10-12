@@ -10,27 +10,13 @@
 # you will need to provide at least an empty dict in this file, e.g.
 # osfamilymap: {}
 ---
-Debian:
-  pkg:
-    name: pam-mount-debian
-  config: /etc/pam-mount.d/custom.conf
+RedHat: {}
 
-RedHat:
-  pkg:
-    name: pam-mount-redhat
-  config: /etc/pam-mount.conf
-
-Suse:
-  pkg:
-    name: pam-mount-suse
+Suse: {}
 
 Gentoo: {}
 
-Arch:
-  pkg:
-    name: pam-mount-arch
-  service:
-    name: service-arch
+Arch: {}
 
 Alpine: {}
 

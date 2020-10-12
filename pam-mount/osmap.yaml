@@ -11,18 +11,11 @@
 # osmap: {}
 ---
 # os_family: Debian
-Ubuntu:
-  pkg:
-    name: pam-mount-ubuntu
-  config: /etc/pam-mount.d/custom-ubuntu.conf
+Ubuntu: {}
 Raspbian: {}
 
 # os_family: RedHat
-Fedora:
-  pkg:
-    name: pam-mount-fedora
-  service:
-    name: service-fedora
+Fedora: {}
 CentOS: {}
 Amazon: {}
 

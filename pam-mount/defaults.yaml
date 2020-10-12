@@ -1,15 +1,4 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
-pam-mount:
-  pkg:
-    name: pam-mount
-  rootgroup: root
-  config: '/etc/pam-mount'
-  service:
-    name: pam-mount
-  subcomponent:
-    config: '/etc/pam-mount-subcomponent-formula.conf'
-  # Just here for testing
-  added_in_defaults: defaults_value
-  winner: defaults
+pam-mount: {}
