@@ -1,7 +1,7 @@
 .. _readme:
 
 pam-mount-formula
-================
+=================
 
 |img_travis| |img_sr| |img_pc|
 
@@ -18,8 +18,7 @@ pam-mount-formula
    :scale: 100%
    :target: https://github.com/pre-commit/pre-commit
 
-A SaltStack formula that is empty. It has dummy content to help with a quick
-start on a new formula and it serves as a style guide.
+Configure automounting with `pam-mount`_.
 
 .. contents:: **Table of Contents**
    :depth: 1
@@ -73,79 +72,66 @@ Available states
    :local:
 
 ``pam-mount``
-^^^^^^^^^^^^
+^^^^^^^^^^^^^
 
 *Meta-state (This is a state that includes other states)*.
 
-This installs the pam-mount package,
-manages the pam-mount configuration file and then
-starts the associated pam-mount service.
+This installs the required packages and manages the pam-mount
+configuration file.
+
+It depends on:
+
+- `pam-mount.package`_
+- `pam-mount.config`_
 
 ``pam-mount.package``
-^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
 
-This state will install the pam-mount package only.
+*Meta-state (This is a state that includes other states)*.
+
+Managage packages required to use `pam-mount`_.
+
+``pam-mount.package.install``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This state will install the `pam-mount`_ package and the declared dependencies.
 
 ``pam-mount.config``
-^^^^^^^^^^^^^^^^^^^
-
-This state will configure the pam-mount service and has a dependency on ``pam-mount.install``
-via include list.
-
-``pam-mount.service``
 ^^^^^^^^^^^^^^^^^^^^
 
-This state will start the pam-mount service and has a dependency on ``pam-mount.config``
-via include list.
+This state will configure ``pam_mount.conf.xml`` for the declared volumes.
+
+It depends on:
+
+- `pam-mount.package.install`_
 
 ``pam-mount.clean``
-^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
 *Meta-state (This is a state that includes other states)*.
 
-this state will undo everything performed in the ``pam-mount`` meta-state in reverse order, i.e.
-stops the service,
-removes the configuration file and
-then uninstalls the package.
+This state will undo everything performed in the `pam-mount`_ meta-state in reverse order, i.e.
+removes the configuration file and then uninstalls the packages.
 
-``pam-mount.service.clean``
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+It depends on:
 
-This state will stop the pam-mount service and disable it at boot time.
+- `pam-mount.config.clean`_
+- `pam-mount.package.clean`_
 
 ``pam-mount.config.clean``
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-This state will remove the configuration of the pam-mount service and has a
-dependency on ``pam-mount.service.clean`` via include list.
-
-``pam-mount.package.clean``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This state will remove the pam-mount package and has a depency on
-``pam-mount.config.clean`` via include list.
+This state will remove the `pam-mount`_ configuration file.
 
-``pam-mount.subcomponent``
-^^^^^^^^^^^^^^^^^^^^^^^^^
+``pam-mount.package.clean``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-*Meta-state (This is a state that includes other states)*.
+This state will remove the `pam-mount`_ package.
 
-This state installs a subcomponent configuration file before
-configuring and starting the pam-mount service.
+It depends on:
 
-``pam-mount.subcomponent.config``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+- `pam-mount.config.clean`_
 
-This state will configure the pam-mount subcomponent and has a
-dependency on ``pam-mount.config`` via include list.
-
-``pam-mount.subcomponent.config.clean``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-This state will remove the configuration of the pam-mount subcomponent
-and reload the pam-mount service by a dependency on
-``pam-mount.service.running`` via include list and ``watch_in``
-requisite.
 
 Testing
 -------
@@ -191,3 +177,6 @@ Runs all of the stages above in one go: i.e. ``destroy`` + ``converge`` + ``veri
 ^^^^^^^^^^^^^^^^^^^^^
 
 Gives you SSH access to the instance for manual testing.
+
+
+.. _pam-mount: http://pam-mount.sourceforge.net
