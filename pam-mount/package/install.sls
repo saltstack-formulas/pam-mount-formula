@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- mode: salt; coding: utf-8 -*-
 # vim: ft=sls
 
 {#- Get the `tplroot` from `tpldir` #}
