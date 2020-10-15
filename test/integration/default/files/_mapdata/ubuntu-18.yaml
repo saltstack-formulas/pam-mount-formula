@@ -10,3 +10,8 @@ map_jinja:
   - C@pam-mount:lookup
   - C@pam-mount
   - Y:G@id
+pkg:
+  dependencies:
+  - cifs-utils
+  - keyutils
+  name: libpam-mount

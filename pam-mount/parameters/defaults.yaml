@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
-values: {}
+values:
+  pkg:
+    name: pam_mount
 ...

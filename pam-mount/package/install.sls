@@ -5,6 +5,13 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as pam_mount with context %}
 
-pam-mount-package-install-pkg-installed:
+{%- set package = pam_mount | traverse("pkg:name") %}
+{%- set dependencies = pam_mount | traverse("pkg:dependencies", []) %}
+
+pam_mount/package/install/dependencies/pkg.installed:
   pkg.installed:
-    - name: {{ pam_mount.pkg.name }}
+    - pkgs: {{ dependencies | json }}
+
+pam-mount/package/install/{{ package }}/pkg.installed:
+  pkg.installed:
+    - name: {{ package }}

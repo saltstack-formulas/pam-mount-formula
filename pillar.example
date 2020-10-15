@@ -1,5 +1,10 @@
 # -*- mode: yaml; coding: utf-8 -*-
 # vim: ft=yaml
 ---
-pam-mount: {}
+pam-mount:
+  pkg:
+    dependencies:
+      # Required for krb5 SMB mounts
+      - cifs-utils
+      - keyutils
 ...
