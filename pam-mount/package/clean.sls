@@ -4,13 +4,13 @@
 {#- Get the `tplroot` from `tpldir` #}
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- set sls_config_clean = tplroot ~ '.config.clean' %}
-{%- from tplroot ~ "/map.jinja" import pam__mount with context %}
+{%- from tplroot ~ "/map.jinja" import mapdata as pam_mount with context %}
 
 include:
   - {{ sls_config_clean }}
 
 pam-mount-package-clean-pkg-removed:
   pkg.removed:
-    - name: {{ pam__mount.pkg.name }}
+    - name: {{ pam_mount.pkg.name }}
     - require:
       - sls: {{ sls_config_clean }}
