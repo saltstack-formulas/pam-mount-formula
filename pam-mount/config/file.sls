@@ -10,19 +10,16 @@
 include:
   - {{ sls_package_install }}
 
-pam-mount-config-file-file-managed:
+pam-mount/config/file/file.managed:
   file.managed:
     - name: {{ pam_mount.config }}
-    - source: {{ files_switch(['example.tmpl'],
-                              lookup='pam-mount-config-file-file-managed'
+    - source: {{ files_switch(['pam_mount.conf.xml.jinja', 'pam_mount.conf.xml'],
+                              lookup='pam-mount/config/file/file.managed'
                  )
               }}
     - mode: 644
-    - user: root
-    - group: {{ pam_mount.rootgroup }}
-    - makedirs: True
     - template: jinja
-    - require:
-      - sls: {{ sls_package_install }}
     - context:
         pam_mount: {{ pam_mount | json }}
+    - require:
+      - sls: {{ sls_package_install }}

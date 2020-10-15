@@ -1,6 +1,8 @@
 # yamllint disable rule:indentation rule:line-length
 # Amazon Linux AMI-2018
 ---
+config: /etc/security/pam_mount.conf.xml
+debug: true
 map_jinja:
   sources:
   - Y:G@osarch
@@ -15,3 +17,24 @@ pkg:
   - cifs-utils
   - keyutils
   name: pam_mount
+volumes:
+  '~':
+    parameters:
+      fstype: cifs
+      options:
+        cifsacl: true
+        cruid: '%(USERUID)'
+        dir_mode: '0700'
+        domain: example.net
+        file_mode: '0600'
+        sec: krb5
+        uid: '%(USERUID)'
+        username: '%(USER)'
+      path: '%(USER)/'
+      server: filer.example.net
+    user_control:
+    - or:
+      - sgrp: domain users
+      - and:
+        - uid: admin
+        - sgrp: domain admins

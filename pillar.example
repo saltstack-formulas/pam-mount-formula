@@ -2,9 +2,32 @@
 # vim: ft=yaml
 ---
 pam-mount:
+  debug: true
   pkg:
     dependencies:
       # Required for krb5 SMB mounts
       - cifs-utils
       - keyutils
+  volumes:
+    "~":
+      parameters:
+        fstype: cifs
+        server: "filer.example.net"
+        path: "%(USER)/"
+        options:
+          username: "%(USER)"
+          domain: "example.net"
+          uid: "%(USERUID)"
+          sec: "krb5"
+          cruid: "%(USERUID)"
+          file_mode: "0600"
+          dir_mode: "0700"
+          cifsacl: true
+      user_control:
+        # Mount for either `Domain Users` or user `admin` member of `Domain Admins`
+        - or:
+            - sgrp: domain users
+            - and:
+                - uid: admin
+                - sgrp: domain admins
 ...

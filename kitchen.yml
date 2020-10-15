@@ -193,7 +193,7 @@ suites:
         base:
           '*':
             - pam-mount._mapdata
-            - pam-mount.package
+            - pam-mount
       pillars:
         top.sls:
           base:

@@ -2,6 +2,10 @@
 # vim: ft=yaml
 ---
 values:
+  config: /etc/security/pam_mount.conf.xml
   pkg:
     name: pam_mount
+  # Create/remove directories on login/login
+  mkdir: true
+  rmdir: true
 ...
